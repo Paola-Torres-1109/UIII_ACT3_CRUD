@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+  <div class="row"><!--la fila-->
+
+    <div class= "col-sm-12 col-md-4 col-lg-4 xl-4"><!--Columna izquierda-->
+      <h1>Mama </h1>
+      <div class="card"><!--La tarjeta-->
+        <div class="card-body">
+          <form action="registrarInventario/" method="POST">{% csrf_token %}<!--Falta action-->
+            <div class="form-group">
+              <input type="text" id="txtcodigo" name="txtcodigo" class="form-control"
+              placeholder="Id Inventario" minlength="1" maxLenght="6" required><br>
+            </div>
+
+            <div class="form-group py-3">
+              <input type="text" id="txtvehiculo" name="txtvehiculo" class="form-control"
+              placeholder="Nombre Vehiculo" maxLenght="100" required><br>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="numcantidad_a" name="numcantidad_a" class="form-control"
+              min="1" max="500" value="1" required><br>
+            </div>
+
+            <div class="form-group py-3">
+              <input type="text" id="txtubicacion" name="txtubicacion" class="form-control"
+              placeholder="Ubicacion" maxLenght="100" required><br>
+            </div>
+
+            <div class="form-group py-3">
+              <input type="text" id="txtestado" name="txtestado" class="form-control"
+              placeholder="Estado del Vehiculo" maxLenght="100" required><br>
+            </div>
+
+            <div class="form-group py-3">
+              <input type="text" id="txtproveedor" name="txtproveedor" class="form-control"
+              placeholder="Proveedor" maxLenght="100" required><br>
+            </div>
+
+            <div class="form-group py-3">
+              <button type="submit" class="btn btn-primary">Guardar Inventario</button>
+            </div>
+          </form>
+        </div>
+      </div><!--La tarjeta-->
+    </div><!--Columna izquierda-->
+
+
+  <div class="col-sm-12 col-md-8 col-lg-8 xl-8"><!--Columna derecha-->
+    <h1>Listado de Materias</h1>
+    <!--La tabla-->
+    <table class="table table-striped">                            
+      <thead>
+        <tr>
+          <th scope="col">id Inventario</th>
+          <th scope="col">Vehiculo</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Ubicacion</th>
+          <th scope="col">Estado (bueno, malo, regular)</th>
+          <th scope="col">Proveedor</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in miscarros %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.id_inventario}}</td>
+            <td>{{i.vehiculo}}</td>
+            <td>{{i.cantidad_auto}}</td>
+            <td>{{i.ubicacion}}</td>
+            <td>{{i.estado_bmr}}</td>
+            <td>{{i.proveedor}}</td>
+            <td> <a href="seleccionarInventario/{{i.id_inventario}}" class="btn btn-info">Editar</a></td><!--falta-->
+            <td> <a href="borrarInventario/{{i.id_inventario}}" class="btn btn-danger">Borrar</a></td><!--falta-->
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!--La tabla-->
+  </div><!--Columna derecha-->
+</div><!--la fila-->
+{% endblock %}
